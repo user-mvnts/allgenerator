@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AllGen - Gerador de GIF com Texto Animado</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico?v=1">
+    <!-- Tailwind CSS para estilização rápida -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Biblioteca para capturar o HTML como imagem -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <!-- Biblioteca para criar o GIF a partir das imagens -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gif.js/0.2.0/gif.js"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Anton&family=Comic+Neue:wght@700&family=Great+Vibes&family=Lobster&family=Oswald:wght@700&family=Pacifico&family=Playfair+Display:wght@900&family=Roboto+Slab:wght@700&family=Source+Code+Pro:wght@700&family=Bebas+Neue&family=Montserrat:wght@400;700;900&family=Open+Sans:wght@400;700&family=Poppins:wght@400;600;700;900&family=Raleway:wght@400;700;900&family=Merriweather:wght@400;700;900&family=Lato:wght@400;700;900&family=Ubuntu:wght@400;700&family=PT+Sans:wght@400;700&family=PT+Serif:wght@400;700&family=Roboto:wght@400;700;900&family=Oswald:wght@400;700&family=Quicksand:wght@400;700&family=Nunito:wght@400;700;900&family=Work+Sans:wght@400;700&family=Source+Sans+Pro:wght@400;700;900&family=Noto+Sans:wght@400;700&family=Noto+Serif:wght@400;700&family=Crimson+Text:wght@400;700&family=Libre+Baskerville:wght@400;700&family=Crimson+Pro:wght@400;700&family=DM+Sans:wght@400;700&family=DM+Serif+Display:wght@400&family=DM+Serif+Text:wght@400;700&family=Fraunces:wght@400;700;900&family=Space+Grotesk:wght@400;700&family=Space+Mono:wght@400;700&family=JetBrains+Mono:wght@400;700&family=Fira+Code:wght@400;700&family=Courier+Prime:wght@400;700&family=IBM+Plex+Sans:wght@400;700&family=IBM+Plex+Serif:wght@400;700&family=IBM+Plex+Mono:wght@400;700&family=Red+Hat+Display:wght@400;700;900&family=Red+Hat+Text:wght@400;700&family=Manrope:wght@400;700;800&family=Epilogue:wght@400;700;900&family=Outfit:wght@400;700;900&family=Plus+Jakarta+Sans:wght@400;700;800&family=Figtree:wght@400;700;900&family=Geist:wght@400;700&family=Geist+Mono:wght@400;700&family=Inter+Tight:wght@400;700;900&family=Lexend:wght@400;700&family=Lexend+Deca:wght@400;700&family=Lexend+Giga:wght@400;700&family=Lexend+Mega:wght@400;700&family=Lexend+Peta:wght@400;700&family=Lexend+Tera:wght@400;700&family=Lexend+Zetta:wght@400;700&family=Lexend+Exa:wght@400;700&family=Lexend+Zetta:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Sistema de cores customizado integrado -->
+
+    <!-- CSS personalizado -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+    <body class="flex flex-col min-h-screen">
+    
+
+    <!-- Cabeçalho -->
+    <header class="bg-white/90 backdrop-blur-md border-b border-gray-200/80 w-full fixed top-0 z-20 shadow-sm">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-8">
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                        <span class="text-white font-bold text-sm">A</span>
+                    </div>
+                    <h1 class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">AllGen</h1>
+                </div>
+                <button id="services-btn" class="text-gray-600 hover:text-blue-600 transition-all duration-300 focus:outline-none font-medium text-sm hover:scale-105 relative group">
+                    Serviços
+                    <div class="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full"></div>
+                </button>
+            </div>
+        </nav>
+    </header>
+    
+    <!-- Sub-header de Serviços -->
+    <div id="sub-header" class="hidden bg-gradient-to-r from-blue-50/90 to-purple-50/90 backdrop-blur-md shadow-lg w-full fixed top-[73px] z-10 transition-all duration-500 transform -translate-y-full opacity-0 max-h-[80vh] overflow-y-auto">
+        <div class="container mx-auto px-4 py-4">
+            <div class="text-center mb-4">
+                <h2 class="text-lg md:text-xl font-bold text-gray-800 mb-2">Nossos Serviços</h2>
+                <p class="text-gray-600 text-xs md:text-sm">Ferramentas criativas para suas necessidades</p>
+            </div>
+            <!-- Categorias de Serviços -->
+            <div class="space-y-6">
+                <!-- PDF -->
+                <div class="service-category">
+                    <h3 class="text-lg font-bold text-gray-800 mb-3 flex items-center">
+                        <span class="text-2xl mr-2">📄</span>
+                        PDF
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                        <div class="service-item bg-white/60 backdrop-blur-sm rounded-lg p-3 text-sm">
+                            <span class="text-gray-600">Juntar PDFs</span>
+                            <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full ml-2">Em breve</span>
+                        </div>
+                        <div class="service-item bg-white/60 backdrop-blur-sm rounded-lg p-3 text-sm">
+                            <span class="text-gray-600">Dividir PDFs</span>
+                            <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full ml-2">Em breve</span>
+                        </div>
+                        <div class="service-item bg-white/60 backdrop-blur-sm rounded-lg p-3 text-sm">
+                            <span class="text-gray-600">Extrair Imagens</span>
+                            <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full ml-2">Em breve</span>
+                        </div>
+                        <div class="service-item bg-white/60 backdrop-blur-sm rounded-lg p-3 text-sm">
+                            <span class="text-gray-600">PDF para Imagens</span>
+                            <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full ml-2">Em breve</span>
+                        </div>
+                        <div class="service-item bg-white/60 backdrop-blur-sm rounded-lg p-3 text-sm">
+                            <span class="text-gray-600">Imagens para PDF</span>
+                            <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full ml-2">Em breve</span>
+                        </div>
+                        <div class="service-item bg-white/60 backdrop-blur-sm rounded-lg p-3 text-sm">
+                            <span class="text-gray-600">Proteger PDFs</span>
+                            <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full ml-2">Em breve</span>
+                        </div>
+                        <div class="service-item bg-white/60 backdrop-blur-sm rounded-lg p-3 text-sm">
+                            <span class="text-gray-600">Comprimir PDFs</span>
+                            <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full ml-2">Em breve</span>
+                        </div>
+                        <div class="service-item bg-white/60 backdrop-blur-sm rounded-lg p-3 text-sm">
+                            <span class="text-gray-600">Editar PDFs</span>
+                            <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full ml-2">Em breve</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Imagens -->
+                <div class="service-category">
+                    <h3 class="text-lg font-bold text-gray-800 mb-3 flex items-center">
+                        <span class="text-2xl mr-2">🖼️</span>
+                        Imagens
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                        <div class="service-item bg-white/60 backdrop-blur-sm rounded-lg p-3 text-sm">
+                            <span class="text-gray-600">Conversor de Formatos</span>
+                            <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full ml-2">Em breve</span>
+                        </div>
+                        <div class="service-item bg-white/60 backdrop-blur-sm rounded-lg p-3 text-sm">
+                            <span class="text-gray-600">Comprimir Imagens</span>
+                            <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full ml-2">Em breve</span>
+                        </div>
+                        <div class="service-item bg-white/60 backdrop-blur-sm rounded-lg p-3 text-sm">
+                            <span class="text-gray-600">Redimensionar Imagens</span>
+                            <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full ml-2">Em breve</span>
+                        </div>
+                        <div class="service-item bg-white/60 backdrop-blur-sm rounded-lg p-3 text-sm">
+                            <span class="text-gray-600">Removedor de Fundo</span>
+                            <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full ml-2">Em breve</span>
+                        </div>
+                        <div class="service-item bg-white/60 backdrop-blur-sm rounded-lg p-3 text-sm">
+                            <span class="text-gray-600">Extrair Texto</span>
+                            <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full ml-2">Em breve</span>
+                        </div>
+                        <div class="service-item bg-white/60 backdrop-blur-sm rounded-lg p-3 text-sm">
+                            <span class="text-gray-600">Imagens para PDF</span>
+                            <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full ml-2">Em breve</span>
+                        </div>
+                        <div class="service-item bg-white/60 backdrop-blur-sm rounded-lg p-3 text-sm">
+                            <span class="text-gray-600">Gerador de QR Codes</span>
+                            <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full ml-2">Em breve</span>
+                        </div>
+                        <div class="service-item bg-green-50 border-2 border-green-200 backdrop-blur-sm rounded-lg p-3 text-sm">
+                            <span class="text-gray-800 font-medium">Gerar GIFs Animados</span>
+                            <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full ml-2">Disponível</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mídia -->
+                <div class="service-category">
+                    <h3 class="text-lg font-bold text-gray-800 mb-3 flex items-center">
+                        <span class="text-2xl mr-2">🎬</span>
+                        Mídia
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                        <div class="service-item bg-white/60 backdrop-blur-sm rounded-lg p-3 text-sm">
+                            <span class="text-gray-600">Vídeo para GIF</span>
+                            <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full ml-2">Em breve</span>
+                        </div>
+                        <div class="service-item bg-white/60 backdrop-blur-sm rounded-lg p-3 text-sm">
+                            <span class="text-gray-600">Extrair Áudio</span>
+                            <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full ml-2">Em breve</span>
+                        </div>
+                        <div class="service-item bg-white/60 backdrop-blur-sm rounded-lg p-3 text-sm">
+                            <span class="text-gray-600">Comprimir Vídeo</span>
+                            <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full ml-2">Em breve</span>
+                        </div>
+                        <div class="service-item bg-white/60 backdrop-blur-sm rounded-lg p-3 text-sm">
+                            <span class="text-gray-600">Áudio para Texto</span>
+                            <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full ml-2">Em breve</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Documentos -->
+                <div class="service-category">
+                    <h3 class="text-lg font-bold text-gray-800 mb-3 flex items-center">
+                        <span class="text-2xl mr-2">📝</span>
+                        Documentos
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                        <div class="service-item bg-white/60 backdrop-blur-sm rounded-lg p-3 text-sm">
+                            <span class="text-gray-600">Word para PDF</span>
+                            <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full ml-2">Em breve</span>
+                        </div>
+                        <div class="service-item bg-white/60 backdrop-blur-sm rounded-lg p-3 text-sm">
+                            <span class="text-gray-600">PDF para Word</span>
+                            <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full ml-2">Em breve</span>
+                        </div>
+                        <div class="service-item bg-white/60 backdrop-blur-sm rounded-lg p-3 text-sm">
+                            <span class="text-gray-600">Formatador ABNT</span>
+                            <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full ml-2">Em breve</span>
+                        </div>
+                        <div class="service-item bg-white/60 backdrop-blur-sm rounded-lg p-3 text-sm">
+                            <span class="text-gray-600">Extrair Texto</span>
+                            <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full ml-2">Em breve</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Extras -->
+                <div class="service-category">
+                    <h3 class="text-lg font-bold text-gray-800 mb-3 flex items-center">
+                        <span class="text-2xl mr-2">🔐</span>
+                        Extras
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                        <div class="service-item bg-white/60 backdrop-blur-sm rounded-lg p-3 text-sm">
+                            <span class="text-gray-600">Encurtador de Links</span>
+                            <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full ml-2">Em breve</span>
+                        </div>
+                        <div class="service-item bg-white/60 backdrop-blur-sm rounded-lg p-3 text-sm">
+                            <span class="text-gray-600">Gerador de Senhas</span>
+                            <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full ml-2">Em breve</span>
+                        </div>
+                        <div class="service-item bg-white/60 backdrop-blur-sm rounded-lg p-3 text-sm">
+                            <span class="text-gray-600">Hash de Arquivos</span>
+                            <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full ml-2">Em breve</span>
+                        </div>
+                        <div class="service-item bg-white/60 backdrop-blur-sm rounded-lg p-3 text-sm">
+                            <span class="text-gray-600">Detector de Plágio</span>
+                            <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full ml-2">Em breve</span>
+                        </div>
+                        <div class="service-item bg-white/60 backdrop-blur-sm rounded-lg p-3 text-sm">
+                            <span class="text-gray-600">Conversor de Unidades</span>
+                            <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full ml-2">Em breve</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Conteúdo Principal -->
+    <main class="flex-grow container mx-auto p-4 md:p-8 mt-0 md:mt-4">
+        <div class="text-center mb-6 md:mb-10">
+            <h1 class="text-2xl md:text-4xl lg:text-5xl font-bold text-gray-800 mb-2">Crie seu GIF Personalizado</h1>
+            <p class="text-gray-500 text-base md:text-lg">Digite seu texto, ajuste o visual e baixe sua animação!</p>
+        </div>
+        
+        <!-- Controles do usuário -->
+        <div class="bg-white shadow-md rounded-xl p-4 md:p-6 lg:p-8 mb-6 md:mb-10">
+            <div class="grid grid-cols-1 gap-6 md:gap-8">
+                <!-- Seção de Aparência Geral -->
+                <div class="p-3 md:p-4 border rounded-lg">
+                    <h3 class="text-base md:text-lg font-medium text-gray-800 mb-3 md:mb-4">Aparência Geral</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 control-panel-section items-end">
+                        <div class="md:col-span-4">
+                            <label for="text-input" class="block text-sm font-medium text-gray-700 mb-1">Seu Texto:</label>
+                             <div class="flex items-center space-x-2">
+                                <input type="text" id="text-input" class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" value="AllGen Rocks!">
+                                <button data-modal="text-settings-modal" class="p-2 rounded-md hover:bg-gray-100 settings-btn"><svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg></button>
+                            </div>
+                        </div>
+                         <div class="md:col-span-4">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Tamanho:</label>
+                            <div class="flex items-center space-x-2">
+                                <div class="flex-grow grid grid-cols-2 sm:grid-cols-4 gap-2">
+                                    <button class="size-preset rounded-md p-2 text-center group" data-width="1080" data-height="1080"><div class="size-preset-icon w-full h-12 rounded" style="aspect-ratio: 1/1;"></div><span class="text-xs font-medium text-gray-600 group-hover:text-blue-600">Post</span><span class="text-xs text-gray-500 block">1080x1080</span></button>
+                                    <button class="size-preset rounded-md p-2 text-center group" data-width="1080" data-height="1350"><div class="size-preset-icon w-full h-12 rounded" style="aspect-ratio: 4/5;"></div><span class="text-xs font-medium text-gray-600 group-hover:text-blue-600">Post (V)</span><span class="text-xs text-gray-500 block">1080x1350</span></button>
+                                    <button class="size-preset rounded-md p-2 text-center group" data-width="1080" data-height="1920"><div class="size-preset-icon w-full h-12 rounded" style="aspect-ratio: 9/16;"></div><span class="text-xs font-medium text-gray-600 group-hover:text-blue-600">Story</span><span class="text-xs text-gray-500 block">1080x1920</span></button>
+                                    <button class="size-preset rounded-md p-2 text-center group active" data-width="1200" data-height="400"><div class="size-preset-icon w-full h-12 rounded" style="aspect-ratio: 12/4;"></div><span class="text-xs font-medium text-gray-600 group-hover:text-blue-600">Capa</span><span class="text-xs text-gray-500 block">1200x400</span></button>
+                                </div>
+                                <button data-modal="size-settings-modal" class="p-2 rounded-md hover:bg-gray-100 settings-btn"><svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Seção de Fundo e Animação -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="p-4 border rounded-lg"><h3 class="text-lg font-medium text-gray-800 mb-4">Fundo</h3><div class="flex items-center space-x-2"><div class="flex-grow radio-group flex space-x-2"><input type="radio" id="bg-solid" name="bg-type" value="solid" checked><label for="bg-solid">Cor</label><input type="radio" id="bg-gradient" name="bg-type" value="gradient"><label for="bg-gradient">Gradiente</label><input type="radio" id="bg-image" name="bg-type" value="image"><label for="bg-image">Imagem</label></div><button data-modal="background-settings-modal" class="p-2 rounded-md hover:bg-gray-100 settings-btn"><svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg></button></div></div>
+                    <div class="p-4 border rounded-lg"><h3 class="text-lg font-medium text-gray-800 mb-4">Animação</h3><div class="flex items-center space-x-2"><div class="flex-grow grid grid-cols-2 gap-4"><select id="animation-select" class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+<option value="bounce">Bounce</option>
+<option value="flip">Flip</option>
+<option value="fadeIn">Fade In</option>
+<option value="slideUp">Slide Up</option>
+<option value="pulse">Pulse</option>
+<option value="tada">Tada</option>
+<option value="zoomIn">Zoom In</option>
+<option value="zoomOut">Zoom Out</option>
+<option value="slideDown">Slide Down</option>
+<option value="slideLeft">Slide Left</option>
+<option value="slideRight">Slide Right</option>
+<option value="rotateIn">Rotate In</option>
+<option value="rotateOut">Rotate Out</option>
+<option value="shake">Shake</option>
+<option value="wobble">Wobble</option>
+<option value="jello">Jello</option>
+<option value="heartbeat">Heartbeat</option>
+<option value="rubberBand">Rubber Band</option>
+<option value="swing">Swing</option>
+<option value="hinge">Hinge</option>
+<option value="jackInTheBox">Jack in the Box</option>
+<option value="rollIn">Roll In</option>
+<option value="rollOut">Roll Out</option>
+<option value="lightSpeedIn">Light Speed In</option>
+<option value="lightSpeedOut">Light Speed Out</option>
+</select><select id="animation-mode-select" class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"><option value="completo">Completo</option><option value="individual">Letra a Letra</option></select></div><button data-modal="animation-settings-modal" class="p-2 rounded-md hover:bg-gray-100 settings-btn"><svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg></button></div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Área de visualização e captura -->
+        <div class="preview-container">
+            <div id="capture-viewport" class="mx-auto rounded-xl shadow-md">
+                <div id="capture-area" class="flex items-center justify-center text-white font-bold overflow-hidden" style="width: 1200px; height: 400px; min-width: 300px; min-height: 200px;">
+                    <!-- Linhas guia de snap -->
+                    <div class="snap-guide horizontal" id="snap-guide-h"></div>
+                    <div class="snap-guide vertical" id="snap-guide-v"></div>
+                    
+                    <div id="transform-box">
+                        <h2 id="animated-text" class="text-center px-4 whitespace-nowrap" style="font-size: 96px; font-family: 'Inter', sans-serif;"></h2>
+                        <div class="transform-handle resize-handle handle-br" data-handle="br"></div>
+                        <div class="transform-handle resize-handle handle-bl" data-handle="bl"></div>
+                        <div class="transform-handle resize-handle handle-tr" data-handle="tr"></div>
+                        <div class="transform-handle resize-handle handle-tl" data-handle="tl"></div>
+                        <div class="transform-handle rotate-handle" data-handle="rot"></div>
+                        <div class="rotation-display" id="rotation-display">0°</div>
+                    </div>
+                </div>
+                <button id="fullscreen-btn" class="absolute top-2 right-2 md:top-3 md:right-3 p-1.5 md:p-2 bg-black/30 text-white rounded-full hover:bg-black/50 transition-colors" aria-label="Ver em tela cheia"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 md:h-5 md:w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5v-4m0 0h-4m4 0l-5-5" /></svg></button>
+            </div>
+            <!-- Overlay de bloqueio apenas no preview -->
+            <div id="loading-overlay" class="loading-overlay"></div>
+        </div>
+        <div class="mt-6 md:mt-10 flex flex-col items-center">
+            <button id="download-btn" class="progress-button bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 md:py-3 px-6 md:px-10 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300 text-sm md:text-base">
+                <div class="progress-content">
+                    <span>Baixar .GIF</span>
+                </div>
+                <div class="progress-indicator">
+                    <span class="progress-text" id="progress-text">Preparando...</span>
+                </div>
+            </button>
+        </div>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="w-full bg-gradient-to-br from-gray-50 to-gray-100 mt-16 py-8 md:py-12 border-t border-gray-200">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 text-center md:text-left">
+                <!-- Logo e Descrição -->
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-2 justify-center md:justify-start">
+                        <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold text-sm">A</span>
+                        </div>
+                        <h3 class="font-bold text-lg md:text-xl bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">AllGen</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm leading-relaxed">Sua plataforma de ferramentas criativas para impulsionar sua criatividade e produtividade.</p>
+                    <div class="flex space-x-3 md:space-x-4 justify-center md:justify-start">
+                        <a href="#" class="w-8 h-8 bg-gray-200 hover:bg-pink-600 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 group">
+                            <svg class="w-4 h-4 text-gray-600 group-hover:text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.919-.058-1.265-.07-1.645-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="w-8 h-8 bg-gray-200 hover:bg-red-600 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 group">
+                            <svg class="w-4 h-4 text-gray-600 group-hover:text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.746-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24.009 12.017 24.009c6.624 0 11.99-5.367 11.99-11.988C24.007 5.367 18.641.001.012.001z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="w-8 h-8 bg-gray-200 hover:bg-gray-800 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 group">
+                            <svg class="w-4 h-4 text-gray-600 group-hover:text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Serviços -->
+                <div class="footer-services space-y-3 md:space-y-4" id="footer-services">
+                    <h3 class="font-semibold text-gray-800 text-base md:text-lg mb-3 md:mb-4">Nossos Serviços</h3>
+                    <div class="space-y-3">
+                        <!-- Serviços Principais -->
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-gray-700">🎬 Gerar GIFs Animados</span>
+                                <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Disponível</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-gray-700">🖼️ Conversor de Imagem</span>
+                                <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">Em breve</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-gray-700">📄 Conversor de PDF</span>
+                                <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">Em breve</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Botão Outros -->
+                        <div class="pt-2">
+                            <button id="show-all-services-footer" class="w-full text-center text-sm text-blue-600 hover:text-blue-700 font-medium py-2 px-3 rounded-lg hover:bg-blue-50 transition-all duration-300">
+                                + Ver Todos os Serviços
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Apoie o Projeto -->
+                <div class="space-y-3 md:space-y-4">
+                    <h3 class="font-semibold text-gray-800 text-base md:text-lg mb-3 md:mb-4">Apoie o Projeto</h3>
+                    <p class="text-gray-600 text-sm mb-3 md:mb-4">Gostou do AllGen? Ajude-nos a continuar desenvolvendo ferramentas incríveis!</p>
+                    <div class="space-y-3">
+                        <a href="#" class="inline-flex items-center justify-center w-full bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-gray-800 font-semibold py-2 md:py-3 px-4 md:px-6 rounded-lg transition-all duration-300 hover:scale-105 shadow-md hover:shadow-lg group text-sm md:text-base">
+                            ☕ Me compre um café
+                        </a>
+                        <div class="text-center">
+                            <p class="text-xs text-gray-500 mb-2">Ou compartilhe com seus amigos:</p>
+                            <div class="flex justify-center space-x-2">
+                                <button class="text-gray-400 hover:text-blue-600 transition-colors duration-300">
+                                    <svg class="w-4 h-4 md:w-5 md:h-5" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/>
+                                    </svg>
+                                </button>
+                                <button class="text-gray-400 hover:text-green-600 transition-colors duration-300">
+                                    <svg class="w-4 h-4 md:w-5 md:h-5" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Direitos Reservados - Agora no final -->
+            <div class="border-t border-gray-200 mt-6 md:mt-8 pt-4 md:pt-6">
+                <p class="text-xs text-gray-500 text-center">&copy; 2024 AllGen. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- MODAIS DE CONFIGURAÇÃO -->
+    <div id="settings-modal-container" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden p-4">
+        <div class="bg-white rounded-lg shadow-2xl w-full max-w-md flex flex-col">
+            <div class="p-4 border-b flex justify-between items-center"><h2 id="settings-modal-title" class="text-xl font-semibold">Personalizar</h2><button class="close-settings-modal-btn" aria-label="Fechar"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button></div>
+            <div id="settings-modal-content-host" class="p-6 flex-grow overflow-y-auto space-y-6"></div>
+            <div class="p-4 border-t flex justify-end">
+                <button class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg close-settings-modal-btn">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Conteúdo dos Modais (escondido) -->
+    <div id="modal-templates" class="hidden">
+        <div id="text-settings-modal-content"><div class="space-y-4"><div><label for="font-family-select" class="block text-sm font-medium text-gray-700 mb-1">Fonte:</label><select id="font-family-select" class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+<option value="'Inter', sans-serif">Inter</option>
+<option value="'Roboto', sans-serif">Roboto</option>
+<option value="'Playfair Display', serif">Playfair Display</option>
+<option value="'Lobster', cursive">Lobster</option>
+<option value="'Pacifico', cursive">Pacifico</option>
+<option value="'Anton', sans-serif">Anton</option>
+<option value="'Comic Neue', cursive">Comic Neue</option>
+<option value="'Great Vibes', cursive">Great Vibes</option>
+<option value="'Oswald', sans-serif">Oswald</option>
+<option value="'Roboto Slab', serif">Roboto Slab</option>
+<option value="'Source Code Pro', monospace">Source Code Pro</option>
+<option value="'Bebas Neue', sans-serif">Bebas Neue</option>
+<option value="'Montserrat', sans-serif">Montserrat</option>
+<option value="'Open Sans', sans-serif">Open Sans</option>
+<option value="'Poppins', sans-serif">Poppins</option>
+<option value="'Raleway', sans-serif">Raleway</option>
+<option value="'Merriweather', serif">Merriweather</option>
+<option value="'Lato', sans-serif">Lato</option>
+<option value="'Ubuntu', sans-serif">Ubuntu</option>
+<option value="'PT Sans', sans-serif">PT Sans</option>
+<option value="'PT Serif', serif">PT Serif</option>
+<option value="'Quicksand', sans-serif">Quicksand</option>
+<option value="'Nunito', sans-serif">Nunito</option>
+<option value="'Work Sans', sans-serif">Work Sans</option>
+<option value="'Source Sans Pro', sans-serif">Source Sans Pro</option>
+<option value="'Noto Sans', sans-serif">Noto Sans</option>
+<option value="'Noto Serif', serif">Noto Serif</option>
+<option value="'Crimson Text', serif">Crimson Text</option>
+<option value="'Libre Baskerville', serif">Libre Baskerville</option>
+<option value="'Crimson Pro', serif">Crimson Pro</option>
+<option value="'DM Sans', sans-serif">DM Sans</option>
+<option value="'DM Serif Display', serif">DM Serif Display</option>
+<option value="'DM Serif Text', serif">DM Serif Text</option>
+<option value="'Fraunces', serif">Fraunces</option>
+<option value="'Space Grotesk', sans-serif">Space Grotesk</option>
+<option value="'Space Mono', monospace">Space Mono</option>
+<option value="'JetBrains Mono', monospace">JetBrains Mono</option>
+<option value="'Fira Code', monospace">Fira Code</option>
+<option value="'Courier Prime', monospace">Courier Prime</option>
+<option value="'IBM Plex Sans', sans-serif">IBM Plex Sans</option>
+<option value="'IBM Plex Serif', serif">IBM Plex Serif</option>
+<option value="'IBM Plex Mono', monospace">IBM Plex Mono</option>
+<option value="'Red Hat Display', sans-serif">Red Hat Display</option>
+<option value="'Red Hat Text', sans-serif">Red Hat Text</option>
+<option value="'Manrope', sans-serif">Manrope</option>
+<option value="'Epilogue', sans-serif">Epilogue</option>
+<option value="'Outfit', sans-serif">Outfit</option>
+<option value="'Plus Jakarta Sans', sans-serif">Plus Jakarta Sans</option>
+<option value="'Figtree', sans-serif">Figtree</option>
+<option value="'Geist', sans-serif">Geist</option>
+<option value="'Geist Mono', monospace">Geist Mono</option>
+<option value="'Inter Tight', sans-serif">Inter Tight</option>
+<option value="'Lexend', sans-serif">Lexend</option>
+<option value="'Lexend Deca', sans-serif">Lexend Deca</option>
+<option value="'Lexend Giga', sans-serif">Lexend Giga</option>
+<option value="'Lexend Mega', sans-serif">Lexend Mega</option>
+<option value="'Lexend Peta', sans-serif">Lexend Peta</option>
+<option value="'Lexend Tera', sans-serif">Lexend Tera</option>
+<option value="'Lexend Zetta', sans-serif">Lexend Zetta</option>
+<option value="'Lexend Exa', sans-serif">Lexend Exa</option>
+</select></div><div><label class="block text-sm font-medium text-gray-700">Cor</label><input type="text" id="text-color-input" value="#FFFFFFFF" data-coloris></div><div><label for="text-stroke-width" class="block text-sm font-medium text-gray-700 mb-1">Espessura Contorno</label><input type="range" id="text-stroke-width" min="0" max="10" value="0" step="0.5" class="w-full"></div><div><label class="block text-sm font-medium text-gray-700">Cor Contorno</label><input type="text" id="text-stroke-color" value="#000000FF" data-coloris></div><div><label for="text-glow-blur" class="block text-sm font-medium text-gray-700 mb-1">Brilho Externo</label><input type="range" id="text-glow-blur" min="0" max="30" value="0" class="w-full"></div><div><label class="block text-sm font-medium text-gray-700">Cor Brilho</label><input type="text" id="text-glow-color" value="#000000FF" data-coloris></div></div></div>
+        <div id="size-settings-modal-content"><div class="space-y-4"><div><label for="width-input" class="block text-sm font-medium text-gray-700 mb-1">Largura (px):</label><input type="number" id="width-input" class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" value="1200" min="100" max="1920"></div><div><label for="height-input" class="block text-sm font-medium text-gray-700 mb-1">Altura (px):</label><input type="number" id="height-input" class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" value="400" min="100" max="1080"></div></div></div>
+        <div id="background-settings-modal-content"><div id="bg-solid-controls" class="space-y-4"><div><label class="block text-sm font-medium text-gray-700">Cor</label><input type="text" id="bg-color-solid" value="#3b82f6ff" data-coloris></div></div><div id="bg-gradient-controls" class="hidden space-y-4"><div><label class="block text-sm font-medium text-gray-700 mb-2">Cores do Gradiente</label><div id="gradient-colors-container" class="space-y-2"></div><button id="add-gradient-color-btn" class="text-sm text-blue-600 hover:underline">+ Adicionar Cor</button></div><div><label for="gradient-direction-select" class="block text-sm font-medium text-gray-700">Direção</label><select id="gradient-direction-select" class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"><option value="to bottom right">Diagonal \</option><option value="to bottom">Cima para Baixo</option><option value="to right">Esquerda para Direita</option><option value="to top left">Diagonal /</option></select></div></div><div id="bg-image-controls" class="hidden"><button id="open-image-modal-btn" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded-md w-full">Escolher Imagem</button></div></div>
+        <div id="animation-settings-modal-content"><div class="space-y-4"><div><label for="animation-action-duration-input" class="block text-sm font-medium text-gray-700 mb-1">Duração da Ação (s):</label><input type="number" id="animation-action-duration-input" class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" value="1.0" min="0.1" max="5" step="0.1"></div><div><label for="animation-static-duration-input" class="block text-sm font-medium text-gray-700 mb-1">Tempo Estático (s):</label><input type="number" id="animation-static-duration-input" class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" value="1.0" min="0.1" max="5" step="0.1"></div></div></div>
+    </div>
+    
+    <!-- Modal de Galeria de Imagem -->
+    <div id="image-modal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-[60] hidden p-4"><div class="bg-white rounded-lg shadow-2xl w-full max-w-3xl h-full max-h-[80vh] flex flex-col"><div class="p-4 border-b flex justify-between items-center"><h2 class="text-xl font-semibold">Escolher Imagem de Fundo</h2><button id="close-image-modal-btn" aria-label="Fechar"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button></div><div class="border-b"><nav class="flex space-x-4 px-4" id="image-modal-tabs"><button data-tab="upload" class="py-3 px-1 border-b-2 font-medium text-sm border-blue-600 text-blue-600">Upload</button><button data-tab="gallery" class="py-3 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300">Galeria</button></nav></div><div class="p-6 flex-grow overflow-y-auto"><div id="tab-upload" class="tab-content"><label for="image-upload-input" class="flex flex-col items-center justify-center w-full h-64 border-2 border-dashed rounded-lg cursor-pointer hover:bg-gray-50"><div class="flex flex-col items-center justify-center pt-5 pb-6"><svg class="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-4-4V6a4 4 0 014-4h10a4 4 0 014 4v6a4 4 0 01-4 4H7z"></path></svg><p class="mb-2 text-sm text-gray-500"><span class="font-semibold">Clique para enviar</span> ou arraste e solte</p><p class="text-xs text-gray-500">PNG, JPG, GIF</p></div><input id="image-upload-input" type="file" class="hidden" accept="image/png, image/jpeg, image/gif" /></label></div><div id="tab-gallery" class="tab-content hidden"><div class="grid grid-cols-2 md:grid-cols-4 gap-4"><div class="bg-gray-200 aspect-square rounded-md animate-pulse"></div><div class="bg-gray-200 aspect-square rounded-md animate-pulse"></div><div class="bg-gray-200 aspect-square rounded-md animate-pulse"></div><div class="bg-gray-200 aspect-square rounded-md animate-pulse"></div><div class="bg-gray-200 aspect-square rounded-md animate-pulse"></div></div></div></div></div></div>
+    
+    <!-- Outros Modais (Estrutura) -->
+    <div id="fullscreen-modal" class="fixed inset-0 bg-black/80 flex items-center justify-center z-50 hidden p-4"><div id="fullscreen-content" class="relative"></div><button id="close-fullscreen-btn" class="absolute top-4 right-4 p-2 bg-white/20 text-white rounded-full hover:bg-white/40" aria-label="Fechar tela cheia"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg></button></div>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>

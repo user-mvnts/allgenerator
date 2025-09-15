@@ -1,0 +1,556 @@
+/* Estilos personalizados para um visual mais limpo */
+body {
+    font-family: 'Inter', 'Roboto', sans-serif;
+    background-color: #f8f8f8; 
+}
+
+#animated-text.individual span { 
+    display: inline-block; 
+}
+
+#capture-viewport {
+    max-width: 100%;
+    overflow: hidden;
+    position: relative;
+    transition: all 0.3s ease-in-out;
+    background-image: linear-gradient(45deg, #e0e0e0 25%, transparent 25%), linear-gradient(-45deg, #e0e0e0 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #e0e0e0 75%), linear-gradient(-45deg, transparent 75%, #e0e0e0 75%);
+    background-size: 20px 20px;
+    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+    margin: 0 auto;
+}
+
+/* Desktop: configuração padrão */
+body {
+    padding-top: 73px;
+}
+
+#sub-header {
+    top: 73px !important;
+    margin-top: 0 !important;
+}
+
+/* Garantir que funcione em todas as resoluções desktop */
+@media (min-width: 769px) {
+    body {
+        padding-top: 73px !important;
+    }
+    
+    #sub-header {
+        top: 73px !important;
+    }
+}
+
+/* Responsividade para mobile */
+@media (max-width: 768px) {
+    /* Esconder área de serviços no mobile quando não está ativo */
+    #sub-header:not(.show) {
+        display: none !important;
+    }
+    
+    /* Quando ativo, mostrar mas com altura limitada */
+    #sub-header.show {
+        display: block !important;
+        max-height: 60vh;
+        overflow-y: auto;
+    }
+    
+    /* Ajustar padding do body para mobile */
+    body {
+        padding-top: 64px;
+    }
+    
+    /* Ajustar posicionamento do sub-header no mobile */
+    #sub-header {
+        top: 64px !important;
+    }
+}
+    
+    #capture-viewport {
+        max-width: 100vw;
+        margin: 0 auto;
+    }
+    
+    /* Apenas ajustar tamanho no mobile, sem quebrar funcionalidades */
+    #capture-area {
+        min-height: 200px;
+    }
+    
+    #animated-text {
+        font-size: 48px !important;
+        line-height: 1.2;
+    }
+    
+    .transform-handle {
+        width: 12px !important;
+        height: 12px !important;
+    }
+    
+    .rotation-display {
+        font-size: 10px !important;
+        padding: 2px 4px !important;
+    }
+    
+    /* Garantir que o preview funcione no mobile */
+.preview-container {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+    
+    /* Esconder seção de serviços no rodapé no mobile */
+    #footer-services {
+        display: none !important;
+    }
+}
+
+/* Garantir que a área de serviços apareça no desktop */
+@media (min-width: 769px) {
+    #footer-services {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+}
+
+/* Forçar visibilidade da seção de serviços no desktop */
+@media (min-width: 1024px) {
+    #footer-services {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+}
+
+#capture-area {
+    transform-origin: top left;
+    position: relative;
+    background: #3b82f6;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-width: 300px;
+    min-height: 200px;
+    max-width: 100%;
+}
+
+.control-panel-section { 
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); 
+}
+
+/* Estilos para as categorias de serviços */
+.service-category {
+    margin-bottom: 1.5rem;
+}
+
+.service-category h3 {
+    border-bottom: 2px solid #e5e7eb;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.service-item {
+    transition: all 0.2s ease-in-out;
+    border: 1px solid #e5e7eb;
+}
+
+.service-item:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    border-color: #d1d5db;
+}
+
+/* Destaque para o serviço disponível */
+.service-item.bg-green-50 {
+    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+    border-color: #22c55e;
+}
+
+.service-item.bg-green-50:hover {
+    background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
+    box-shadow: 0 4px 12px -1px rgba(34, 197, 94, 0.2);
+}
+
+/* Caixa de transformação */
+#transform-box {
+    position: absolute;
+    cursor: move;
+    display: inline-block;
+    user-select: none;
+    top: 50%;
+    left: 50%;
+}
+
+#transform-box:hover .transform-handle, 
+#transform-box.active .transform-handle { 
+    opacity: 1; 
+}
+
+.transform-handle {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background-color: #fff;
+    border: 2px solid #007aff;
+    border-radius: 50%;
+    z-index: 10;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.resize-handle { 
+    cursor: se-resize; 
+}
+
+.handle-br { 
+    bottom: -6px; 
+    right: -6px; 
+}
+
+.handle-bl { 
+    bottom: -6px; 
+    left: -6px; 
+    cursor: sw-resize; 
+}
+
+.handle-tr { 
+    top: -6px; 
+    right: -6px; 
+    cursor: ne-resize; 
+}
+
+.handle-tl { 
+    top: -6px; 
+    left: -6px; 
+    cursor: nw-resize; 
+}
+
+.rotate-handle { 
+    top: -30px; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    cursor: grab; 
+}
+
+.rotate-handle:active { 
+    cursor: grabbing; 
+}
+
+/* Linhas guia de snap */
+.snap-guide {
+    position: absolute;
+    background-color: #007aff;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.snap-guide.horizontal {
+    height: 1px;
+    width: 100%;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.snap-guide.vertical {
+    width: 1px;
+    height: 100%;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.snap-guide.active {
+    opacity: 0.8;
+}
+
+/* Display de rotação */
+.rotation-display {
+    position: absolute;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.rotation-display.active {
+    opacity: 1;
+}
+
+/* Botão de Loading Progressivo */
+.progress-button {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    min-width: 160px;
+    max-width: 400px;
+}
+
+.progress-button.loading {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    cursor: not-allowed;
+    transform: scale(0.98);
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.progress-button.loading:hover {
+    transform: scale(0.98);
+}
+
+.progress-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    transition: all 0.3s ease;
+}
+
+.progress-button.loading .progress-content {
+    opacity: 0;
+    transform: translateY(10px);
+}
+
+.progress-indicator {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.progress-button.loading .progress-indicator {
+    opacity: 1;
+}
+
+.progress-text {
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+/* Overlay de bloqueio - apenas preview e controles */
+.loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(2px);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    border-radius: 12px;
+}
+
+.loading-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Container para overlay */
+.preview-container {
+    position: relative;
+}
+
+/* Animações suaves */
+@keyframes progressPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+/* Inputs de Rádio */
+.radio-group input[type="radio"] { 
+    position: absolute; 
+    opacity: 0; 
+    width: 0; 
+    height: 0; 
+}
+
+.radio-group label {
+    cursor: pointer;
+    padding: 8px 16px;
+    border-radius: 6px;
+    transition: all 0.2s ease-in-out;
+    border: 1px solid #d1d5db;
+}
+
+.radio-group input[type="radio"]:checked + label { 
+    background-color: #007aff; 
+    color: white; 
+    border-color: #007aff; 
+}
+
+/* Presets de Tamanho */
+.size-preset {
+    border: 2px solid #e5e7eb;
+    transition: border-color 0.2s;
+}
+
+.size-preset.active { 
+    border-color: #007aff; 
+}
+
+.size-preset-icon {
+    background-color: #f3f4f6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Animações de Gradiente removidas */
+
+/* Z-index fix for Coloris picker */
+.clr-picker {
+    z-index: 100 !important;
+}
+
+/* Animações para o seletor de cor moderno */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { 
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+    to { 
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Estilização dos sliders RGB */
+input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: var(--thumb-color, #3b82f6);
+    cursor: pointer;
+    border: 3px solid white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+input[type="range"]::-moz-range-thumb {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: var(--thumb-color, #3b82f6);
+    cursor: pointer;
+    border: 3px solid white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease;
+}
+
+input[type="range"]::-moz-range-thumb:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Efeitos de hover para inputs */
+input[type="text"]:focus {
+    border-color: #3b82f6 !important;
+    background: white !important;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+    transform: translateY(-1px);
+}
+
+/* Melhorar aparência dos botões de cor predefinida */
+.color-preset-btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.color-preset-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s;
+}
+
+.color-preset-btn:hover::before {
+    left: 100%;
+}
+
+/* Responsividade para o seletor de cor */
+@media (max-width: 480px) {
+    #color-picker-overlay .picker-content {
+        max-width: 95%;
+        padding: 24px;
+        margin: 20px;
+    }
+    
+    .color-preset-btn {
+        width: 32px;
+        height: 32px;
+    }
+    
+    .preset-container {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+    }
+}
+
+/* Melhorar acessibilidade */
+.color-preset-btn:focus {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+}
+
+input[type="range"]:focus {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+}
+
+/* Efeito de loading para o seletor */
+@keyframes shimmer {
+    0% { background-position: -200px 0; }
+    100% { background-position: calc(200px + 100%) 0; }
+}
+
+.loading-shimmer {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200px 100%;
+    animation: shimmer 1.5s infinite;
+}
+
