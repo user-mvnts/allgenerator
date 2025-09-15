@@ -65,13 +65,32 @@ body {
     }
     
     #capture-viewport {
-        max-width: 100vw;
+        width: 100% !important;
+        max-width: 100vw !important;
+        height: auto !important;
         margin: 0 auto;
+        background: #f8f9fa;
+        border: 2px solid #e5e7eb;
+        border-radius: 8px;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
     
-    /* Apenas ajustar tamanho no mobile, sem quebrar funcionalidades */
+    /* Ajustar área de captura no mobile */
     #capture-area {
-        min-height: 200px;
+        width: 100% !important;
+        height: 200px !important;
+        min-width: 300px !important;
+        min-height: 200px !important;
+        max-width: 100vw !important;
+        background: #3b82f6 !important;
+        background-size: cover !important;
+        background-position: center !important;
+        background-repeat: no-repeat !important;
+        transform: scale(1) !important;
+        transform-origin: center !important;
     }
     
     #animated-text {
@@ -97,6 +116,16 @@ body {
         display: flex;
         justify-content: center;
         align-items: center;
+        background: #f8f9fa;
+        padding: 10px;
+        border-radius: 8px;
+    }
+    
+    /* Forçar redimensionamento da área de captura no mobile */
+    #capture-area[style*="width: 1200px"] {
+        width: 100% !important;
+        height: 200px !important;
+        max-width: 100vw !important;
     }
     
     /* Esconder seção de serviços no rodapé no mobile */
