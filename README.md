@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # AllGen - Gerador de GIF com Texto Animado
 
 Site para criação de GIFs animados com texto personalizado.
@@ -72,7 +71,3 @@ site/
 - ✅ Estrutura modular
 - ✅ Performance otimizada
 - ✅ Interface limpa e responsiva
-
-=======
-# allgenerator
->>>>>>> bd7f24b3a352bddc76cec4a9033cbdf7981b510f

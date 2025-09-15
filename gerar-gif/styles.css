@@ -63,7 +63,6 @@ body {
     #sub-header {
         top: 64px !important;
     }
-}
     
     #capture-viewport {
         max-width: 100vw;
@@ -91,14 +90,14 @@ body {
     }
     
     /* Garantir que o preview funcione no mobile */
-.preview-container {
-    width: 100%;
-    max-width: 100%;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+    .preview-container {
+        width: 100%;
+        max-width: 100%;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
     
     /* Esconder seção de serviços no rodapé no mobile */
     #footer-services {
